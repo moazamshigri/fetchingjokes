@@ -6,24 +6,35 @@ let data;
 let response;
 let refresh = document.querySelector(".refresh");
 let joke = document.querySelector(".joke");
-
-
+let generate = document.querySelector (".generate");
+generate.addEventListener('click',() => {
+  refresh.style = "display:inline-block;";
+  generate.style = "display:none;";
+  getjokes();
+}
+)
 refresh.addEventListener('click',() => {
-  location.reload();
+    joke.innerHTML = ``;
+    getjokes();
 }
 )
 
 const url = "https://v2.jokeapi.dev/joke/Any";
 
-const getFacts = async () => {
-    console.log("Getting Data...")
+
+const getjokes = async () => {
+    console.log("Getting Data...");
+    
+    
     response = await fetch(url); //what is Response : it is a Promise
+    // while()
     console.log(response); // JSON Format
 
     data = await response.json(); // convert Json format to readable
     //  console.log(data[0].text);
     if(data.type == "twopart"){
         console.log(data.setup);
+        
         joke.innerHTML = `<h2 class = "setup"> ${data.setup} </h2> <br> <h2 class = "delivery"> ${data.delivery} </h2>`;
         console.log("\n",data.delivery);}
     // console.log(data)
@@ -33,7 +44,7 @@ const getFacts = async () => {
     }
   
 }
-getFacts();
+
 
 
 // Understanding Some New Terms 
